@@ -8,9 +8,19 @@ app = Flask(__name__)
 sock = Sock(app)
 
 
-@app.route(INCOMING_CALL_ROUTE)
+@app.route(INCOMING_CALL_ROUTE, methods=['GET', 'POST'])
 def receive_call():
-    return "Real time phone call transcription app"
+    if request.method == 'POST':
+        xml = f"""
+<Response>
+    <Say>
+        You have connected to the Flask application
+    </Say>
+</Response>
+""".strip()
+        return Response(xml, mimetype='text/xml')
+    else:
+        return f"Real time phone call transcription app"
 
 @sock.route(WEBSOCKET_ROUTE)
 def transcription_websocket(ws):
