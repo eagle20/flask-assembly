@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, Response
 from flask_sock import Sock
 
 INCOMING_CALL_ROUTE = '/'
@@ -26,5 +26,4 @@ def receive_call():
 def transcription_websocket(ws):
     pass
     
-def hello_world():
-    return 'Hello, World!'
+
