@@ -20,8 +20,8 @@ def on_data(transcript: aai.RealtimeTranscript):
 
     if isinstance(transcript, aai.RealtimeFinalTranscript):
         print(transcript.text, end="\r\n")
-    else:
-        print(transcript.text, end="\r")
+    #else:
+        #print(transcript.text, end="\r")
 
 
 def on_error(error: aai.RealtimeError):
