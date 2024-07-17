@@ -1,9 +1,23 @@
 import base64
 import json
+import os
 
 from flask import Flask, request, Response
 from flask_sock import Sock
+from twilio.rest import Client
+from dotenv import load_dotenv
+load_dotenv()
+
 from twilio_transcriber import TwilioTranscriber
+
+# Twilio authentication
+account_sid = os.environ['TWILIO_ACCOUNT_SID']
+api_key = os.environ['TWILIO_API_KEY_SID']
+api_secret = os.environ['TWILIO_API_SECRET']
+client = Client(api_key, api_secret, account_sid)
+
+# Twilio phone number to call
+TWILIO_NUMBER = os.environ['TWILIO_NUMBER']
 
 INCOMING_CALL_ROUTE = '/'
 WEBSOCKET_ROUTE = '/realtime'
