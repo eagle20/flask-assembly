@@ -14,7 +14,7 @@ from twilio_transcriber import TwilioTranscriber
 account_sid = os.environ['TWILIO_ACCOUNT_SID']
 api_key = os.environ['TWILIO_API_KEY_SID']
 api_secret = os.environ['TWILIO_API_SECRET']
-#client = Client(api_key, api_secret, account_sid)
+client = Client(api_key, api_secret, account_sid)
 
 # Twilio phone number to call
 TWILIO_NUMBER = os.environ['TWILIO_NUMBER']
