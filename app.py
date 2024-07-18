@@ -16,6 +16,12 @@ api_key = os.environ['TWILIO_API_KEY_SID']
 api_secret = os.environ['TWILIO_API_SECRET']
 client = Client(api_key, api_secret, account_sid)
 
+call = client.calls.create(
+    status_callback="https://joenair12.bubbleapps.io/version-test/api/1.1/wf/twilio/initialize",
+    status_callback_event=["completed"],
+    status_callback_method="POST",
+)
+
 # Twilio phone number to call
 TWILIO_NUMBER = os.environ['TWILIO_NUMBER']
 
