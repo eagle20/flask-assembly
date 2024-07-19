@@ -15,8 +15,8 @@ account_sid = os.environ['TWILIO_ACCOUNT_SID']
 api_key = os.environ['TWILIO_API_KEY_SID']
 api_secret = os.environ['TWILIO_API_SECRET']
 auth_token = os.environ['TWILIO_AUTH_TOKEN']
-#client = Client(api_key, api_secret, account_sid)
-client = Client(account_sid, auth_token)
+client = Client(api_key, api_secret, account_sid)
+#client = Client(account_sid, auth_token)
 
 # Twilio phone number to call
 TWILIO_NUMBER = os.environ['TWILIO_NUMBER']
@@ -25,13 +25,13 @@ INCOMING_CALL_ROUTE = '/'
 WEBSOCKET_ROUTE = '/realtime'
 
 # Try calling bubble on call completion
-call = client.calls.create(
-    status_callback="https://joenair12.bubbleapps.io/version-test/api/1.1/wf/twilio/initialize",
-    status_callback_event=["completed"],
-    status_callback_method="POST",
-    to=TWILIO_NUMBER,
-    from_="+13106581962",
-)
+#call = client.calls.create(
+#    status_callback="https://joenair12.bubbleapps.io/version-test/api/1.1/wf/twilio/initialize",
+#    status_callback_event=["completed"],
+#    status_callback_method="POST",
+#    to=TWILIO_NUMBER,
+#    from_="+13106581962",
+#)
 
 app = Flask(__name__)
 sock = Sock(app)
