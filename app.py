@@ -4,6 +4,7 @@ import os
 
 from flask import Flask, request, Response
 from flask_sock import Sock
+from flask_sqlalchemy import SQLAlchemy
 from twilio.rest import Client
 from dotenv import load_dotenv
 load_dotenv()
@@ -23,6 +24,8 @@ TWILIO_NUMBER = os.environ['TWILIO_NUMBER']
 
 INCOMING_CALL_ROUTE = '/'
 WEBSOCKET_ROUTE = '/realtime'
+
+db = SQLAlchemy()
 
 # Try calling bubble on call completion
 #call = client.calls.create(
