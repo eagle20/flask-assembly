@@ -22,6 +22,8 @@ client = Client(api_key, api_secret, account_sid)
 # Twilio phone number to call
 TWILIO_NUMBER = os.environ['TWILIO_NUMBER']
 
+sqlalchemy_database_uri = os.environ['SQLALCHEMY_DATABASE_URI']
+
 INCOMING_CALL_ROUTE = '/'
 WEBSOCKET_ROUTE = '/realtime'
 
@@ -39,6 +41,9 @@ db = SQLAlchemy()
 app = Flask(__name__)
 sock = Sock(app)
 
+app.config["SQLALCHEMY_DATABASE_URI"] = sqlalchemy_database_uri
+
+db.init_app(app)
 
 @app.route(INCOMING_CALL_ROUTE, methods=['GET', 'POST'])
 def receive_call():
