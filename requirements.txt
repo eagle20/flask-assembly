@@ -5,5 +5,5 @@ flask-sock>=0.7.0
 ngrok>=1.0.0
 python-dotenv>=1.0.1
 twilio>=8.13.0
-flash-sqlalchemy
+flask-sqlalchemy
 psycopg2
