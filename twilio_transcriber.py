@@ -33,13 +33,13 @@ def on_error(error: aai.RealtimeError):
 
 def on_close():
     "Called when the connection has been closed."
-    self.final_transcript = "".join(final_transcript)
+    #self.final_transcript = "".join(final_transcript)
     #print("Final Transcript:", full_transcript)
     print("Closing Session")
 
 
 class TwilioTranscriber(aai.RealtimeTranscriber):
-    def __init__(self):
+    def __init__(self, final_transcript):
         super().__init__(
             on_data=on_data,
             on_error=on_error,
@@ -48,4 +48,4 @@ class TwilioTranscriber(aai.RealtimeTranscriber):
             sample_rate=TWILIO_SAMPLE_RATE,
             encoding=aai.AudioEncoding.pcm_mulaw
         )
-        self.final_transcript = []
+        self.final_transcript = final_transcript
