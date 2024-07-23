@@ -29,15 +29,6 @@ WEBSOCKET_ROUTE = '/realtime'
 
 db = SQLAlchemy()
 
-# Try calling bubble on call completion
-#call = client.calls.create(
-#    status_callback="https://joenair12.bubbleapps.io/version-test/api/1.1/wf/twilio/initialize",
-#    status_callback_event=["completed"],
-#    status_callback_method="POST",
-#    to=TWILIO_NUMBER,
-#    from_="+13106581962",
-#)
-
 app = Flask(__name__)
 sock = Sock(app)
 
@@ -65,6 +56,7 @@ def receive_call():
 @sock.route(WEBSOCKET_ROUTE)
 def transcription_websocket(ws):
     print('called')
+    transcriber = None
     while True:
         data = json.loads(ws.receive())
         match data['event']:
@@ -80,7 +72,6 @@ def transcription_websocket(ws):
                 transcriber.stream(payload_mulaw)
             case "stop":
                 print('twilio stopped')
-                print("Final Final:", transcriber.final_transcript)
                 transcriber.close()
                 print("Final Final 2:", transcriber.final_transcript)
                 print('transcriber closed')
