@@ -19,6 +19,7 @@ def on_data(transcript: aai.RealtimeTranscript):
         return
 
     if isinstance(transcript, aai.RealtimeFinalTranscript):
+        self.final_transcript.append(transcript.text)
         print(transcript.text, end="\r\n")
     #else:
         #print(transcript.text, end="\r")
@@ -29,13 +30,16 @@ def on_error(error: aai.RealtimeError):
     print("An error occured:", error)
 
 
-def on_close():
+def on_close(self):
     "Called when the connection has been closed."
+    full_transcript = "".join(self.final_transcript)
+    print("Final Transcript:", full_transcript)
     print("Closing Session")
 
 
 class TwilioTranscriber(aai.RealtimeTranscriber):
     def __init__(self):
+        self.final_transcript = []
         super().__init__(
             on_data=on_data,
             on_error=on_error,
