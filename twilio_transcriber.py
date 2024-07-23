@@ -13,13 +13,13 @@ def on_open(session_opened: aai.RealtimeSessionOpened):
     print("Session ID:", session_opened.session_id)
 
 
-def on_data(self,transcript: aai.RealtimeTranscript):
+def on_data(transcript: aai.RealtimeTranscript):
     "Called when a new transcript has been received."
     if not transcript.text:
         return
 
     if isinstance(transcript, aai.RealtimeFinalTranscript):
-        self.final_transcript.append(transcript.text)
+        final_transcript.append(transcript.text)
         print(transcript.text, end="\r\n")
     #else:
         #print(transcript.text, end="\r")
