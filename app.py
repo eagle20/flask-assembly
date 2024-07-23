@@ -27,6 +27,8 @@ sqlalchemy_database_uri = os.environ['SQLALCHEMY_DATABASE_URI']
 INCOMING_CALL_ROUTE = '/'
 WEBSOCKET_ROUTE = '/realtime'
 
+final_transcript = []
+
 db = SQLAlchemy()
 
 # Try calling bubble on call completion
@@ -69,7 +71,7 @@ def transcription_websocket(ws):
         data = json.loads(ws.receive())
         match data['event']:
             case "connected":
-                transcriber = TwilioTranscriber()
+                transcriber = TwilioTranscriber(final_transcript)
                 transcriber.connect()
                 print('transcriber connected')
             case "start":
@@ -83,6 +85,6 @@ def transcription_websocket(ws):
                 print("Final Final:", transcriber.final_transcript)
                 transcriber.close()
                 print('transcriber closed')
-                print("Final Final:", transcriber.final_transcript)
+                print("Final Final:", final_transcript)
     
 
