@@ -33,7 +33,7 @@ def on_error(error: aai.RealtimeError):
 
 def on_close():
     "Called when the connection has been closed."
-    #full_transcript = "".join(final_transcript)
+    self.final_transcript = "".join(final_transcript)
     #print("Final Transcript:", full_transcript)
     print("Closing Session")
 
