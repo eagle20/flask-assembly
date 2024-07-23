@@ -80,6 +80,7 @@ def transcription_websocket(ws):
                 transcriber.stream(payload_mulaw)
             case "stop":
                 print('twilio stopped')
+                print("Final Final:", transcriber.full_transcript)
                 transcriber.close()
                 print('transcriber closed')
     
