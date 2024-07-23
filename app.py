@@ -82,6 +82,7 @@ def transcription_websocket(ws):
                 print('twilio stopped')
                 print("Final Final:", transcriber.final_transcript)
                 transcriber.close()
+                print("Final Final 2:", transcriber.final_transcript)
                 print('transcriber closed')
                 
     
