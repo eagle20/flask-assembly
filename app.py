@@ -43,6 +43,8 @@ class SupaUser(db.Model):
 with app.app_context():
     db.create_all()
 
+#-----------------------------------------------
+
 @app.route(INCOMING_CALL_ROUTE, methods=['GET', 'POST'])
 def receive_call():
     if request.method == 'POST':
@@ -80,6 +82,9 @@ def transcription_websocket(ws):
             case "stop":
                 print('twilio stopped')
                 transcriber.close()
+                data = SupaUser(date=transcriber.created, transcript=transcriber.final_transcript)
+                db.session.add(data)
+                db.session.commit()
                 print("Final Final 2:", transcriber.final_transcript)
                 print("Date:", transcriber.created)
                 print('transcriber closed')
