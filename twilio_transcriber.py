@@ -7,20 +7,20 @@ load_dotenv()
 aai.settings.api_key = os.getenv('ASSEMBLYAI_API_KEY')
 
 TWILIO_SAMPLE_RATE = 8000 # Hz
-final_transcript = []
+#final_transcript = []
 
 def on_open(session_opened: aai.RealtimeSessionOpened):
     "Called when the connection has been established."
     print("Session ID:", session_opened.session_id)
 
 
-def on_data(transcript: aai.RealtimeTranscript):
+def on_data(self, transcript: aai.RealtimeTranscript):
     "Called when a new transcript has been received."
     if not transcript.text:
         return
 
     if isinstance(transcript, aai.RealtimeFinalTranscript):
-        final_transcript.append(transcript.text)
+        self.final_transcript.append(transcript.text)
         print(transcript.text, end="\r\n")
     #else:
         #print(transcript.text, end="\r")
