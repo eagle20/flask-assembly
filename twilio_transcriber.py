@@ -13,13 +13,13 @@ def on_open(session_opened: aai.RealtimeSessionOpened):
     print("Session ID:", session_opened.session_id)
 
 
-def on_data(transcript: aai.RealtimeTranscript):
+def on_data(self,transcript: aai.RealtimeTranscript):
     "Called when a new transcript has been received."
     if not transcript.text:
         return
 
     if isinstance(transcript, aai.RealtimeFinalTranscript):
-        final_transcript.append(transcript.text)
+        self.final_transcript.append(transcript.text)
         print(transcript.text, end="\r\n")
     #else:
         #print(transcript.text, end="\r")
@@ -30,9 +30,9 @@ def on_error(error: aai.RealtimeError):
     print("An error occured:", error)
 
 
-def on_close():
+def on_close(self):
     "Called when the connection has been closed."
-    full_transcript = "".join(final_transcript)
+    full_transcript = "".join(self.final_transcript)
     print("Final Transcript:", full_transcript)
     print("Closing Session")
 
