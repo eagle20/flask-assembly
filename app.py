@@ -36,6 +36,13 @@ app.config["SQLALCHEMY_DATABASE_URI"] = sqlalchemy_database_uri
 
 db.init_app(app)
 
+class SupaUser(db.Model):
+    date = db.Column(db.DateTime, primary_key=True)
+    transcript = db.Column(db.String)
+
+with app.app_context():
+    db.create_all()
+
 @app.route(INCOMING_CALL_ROUTE, methods=['GET', 'POST'])
 def receive_call():
     if request.method == 'POST':
