@@ -31,6 +31,7 @@ class TwilioTranscriber(aai.RealtimeTranscriber):
             encoding=aai.AudioEncoding.pcm_mulaw
         )
         self.final_transcript = []
+        self.created = []
 
 
     def on_data(self, transcript: aai.RealtimeTranscript):
@@ -47,5 +48,6 @@ class TwilioTranscriber(aai.RealtimeTranscriber):
     def on_close(self):
         "Called when the connection has been closed."
         full_transcript = "".join(self.final_transcript)
+        self.created = transcript.created
         print("Final Transcript:", full_transcript)
         print("Closing Session")
