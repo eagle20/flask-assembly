@@ -41,6 +41,7 @@ class TwilioTranscriber(aai.RealtimeTranscriber):
     
         if isinstance(transcript, aai.RealtimeFinalTranscript):
             self.final_transcript.append(transcript.text)
+            self.created = transcript.created
             print(transcript.text, end="\r\n")
         #else:
             #print(transcript.text, end="\r")
@@ -48,6 +49,5 @@ class TwilioTranscriber(aai.RealtimeTranscriber):
     def on_close(self):
         "Called when the connection has been closed."
         full_transcript = "".join(self.final_transcript)
-        self.created = transcript.created
         print("Final Transcript:", full_transcript)
         print("Closing Session")
