@@ -65,6 +65,7 @@ def receive_call():
 @sock.route(WEBSOCKET_ROUTE)
 def transcription_websocket(ws):
     print('called')
+    payload_append = ""
     transcriber = None
     while True:
         data = json.loads(ws.receive())
