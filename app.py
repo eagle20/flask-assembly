@@ -85,6 +85,7 @@ def transcription_websocket(ws):
                 data = SupaUser(date=transcriber.created, transcript=transcriber.final_transcript)
                 db.session.add(data)
                 db.session.commit()
+                print("Payload:", payload_b64)
                 print("Final Final 2:", transcriber.final_transcript)
                 print("Date:", transcriber.created)
                 print('transcriber closed')
