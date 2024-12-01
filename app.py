@@ -39,7 +39,7 @@ db.init_app(app)
 class SupaUser(db.Model):
     date = db.Column(db.DateTime, primary_key=True)
     transcript = db.Column(db.String)
-    session_id = db.Column(db.Uuid)
+    session_id = db.Column(db.String)
 
 with app.app_context():
     db.create_all()
