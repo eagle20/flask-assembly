@@ -76,8 +76,8 @@ def transcription_websocket(ws):
                 print('transcriber connected')
             case "start":
                 print('twilio started')
-                call_id = start.callSid
-                session_id = start.streamSid
+                call_id = data['start']['callSid']
+                session_id = data['start']['streamSid']
             case "media":
                 payload_b64 = data['media']['payload']
                 payload_append = payload_append + payload_b64
