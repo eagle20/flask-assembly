@@ -77,6 +77,7 @@ def transcription_websocket(ws):
                 print('twilio started')
             case "media":
                 payload_b64 = data['media']['payload']
+                print("Payload:", payload_b64)
                 payload_mulaw = base64.b64decode(payload_b64)
                 transcriber.stream(payload_mulaw)
             case "stop":
@@ -89,6 +90,8 @@ def transcription_websocket(ws):
                 print("Final Final 2:", transcriber.final_transcript)
                 print("Date:", transcriber.created)
                 print('transcriber closed')
+                break
                 
-    
+    if __name__ == "__main__":
+        app.run(port=PORT, debug=DEBUG)
 
