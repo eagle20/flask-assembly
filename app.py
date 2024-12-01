@@ -41,7 +41,7 @@ class SupaUser(db.Model):
     transcript = db.Column(db.String)
     session_id = db.Column(db.String)
     call_id = db.Column(db.String)
-    payload = db.Column(db.String)
+    #payload = db.Column(db.String)
 
 with app.app_context():
     db.create_all()
@@ -89,7 +89,7 @@ def transcription_websocket(ws):
             case "stop":
                 print('twilio stopped')
                 transcriber.close()
-                data = SupaUser(date=transcriber.created, transcript=transcriber.final_transcript, session_id = s_id, call_id = c_id, payload = payload_append)
+                data = SupaUser(date=transcriber.created, transcript=transcriber.final_transcript, session_id = s_id, call_id = c_id)
                 db.session.add(data)
                 db.session.commit()
                 #print("Payload:", payload_append)
