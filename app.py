@@ -76,6 +76,8 @@ def transcription_websocket(ws):
                 print('transcriber connected')
             case "start":
                 print('twilio started')
+                call_id = start.callSid
+                session_id = start.streamSid
             case "media":
                 payload_b64 = data['media']['payload']
                 payload_append = payload_append + payload_b64
@@ -87,7 +89,8 @@ def transcription_websocket(ws):
                 data = SupaUser(date=transcriber.created, transcript=transcriber.final_transcript)
                 db.session.add(data)
                 db.session.commit()
-                print("Payload:", payload_append)
+                #print("Payload:", payload_append)
+                print("Caller:", call_id)
                 print("Final Final 2:", transcriber.final_transcript)
                 print("Date:", transcriber.created)
                 print('transcriber closed')
