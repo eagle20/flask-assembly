@@ -42,7 +42,7 @@ class SupaUser(db.Model):
     transcript = db.Column(db.String)
     session_id = db.Column(db.String)
     call_id = db.Column(db.String)
-    payload = db.Column(db.String)
+    b64_payload = db.Column(db.String)
 
 with app.app_context():
     db.create_all()
@@ -101,7 +101,7 @@ def transcription_websocket(ws):
                 wave_write.write(pcmu_data)
                 wave_write.close()
                 #--------------------
-                data = SupaUser(date=transcriber.created, transcript=transcriber.final_transcript, session_id = s_id, call_id = c_id, payload = filname)
+                data = SupaUser(date=transcriber.created, transcript=transcriber.final_transcript, session_id = s_id, call_id = c_id, b64_payload = filname)
                 db.session.add(data)
                 db.session.commit()
                 print("Len:", len(pcmu_data))
