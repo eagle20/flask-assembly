@@ -1,6 +1,7 @@
 import base64
 import json
 import os
+import pywav
 
 from flask import Flask, request, Response
 from flask_sock import Sock
@@ -47,6 +48,7 @@ with app.app_context():
     db.create_all()
 
 pcmu_data = bytearray()
+file_path = "/var/data/"
 #-----------------------------------------------
 
 @app.route(INCOMING_CALL_ROUTE, methods=['GET', 'POST'])
@@ -93,11 +95,18 @@ def transcription_websocket(ws):
             case "stop":
                 print('twilio stopped')
                 transcriber.close()
+                #-------------------
+                filname = file_path + output_filename
+                data_bytes = b"".join(pcmu_data)
+                wave_write = pywav.WavWrite(filname, 1, 8000, 8, 7)
+                wave_write.write(data_bytes)
+                wave_write.close()
+                #--------------------
                 data = SupaUser(date=transcriber.created, transcript=transcriber.final_transcript, session_id = s_id, call_id = c_id)
                 db.session.add(data)
                 db.session.commit()
                 print("Len:", len(pcmu_data))
-                print("file:", output_filename)
+                print("file:", filname)
                 print("Final Final 2:", transcriber.final_transcript)
                 #print("Date:", transcriber.created)
                 print('transcriber closed')
