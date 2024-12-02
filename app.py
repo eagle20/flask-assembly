@@ -46,6 +46,7 @@ class SupaUser(db.Model):
 with app.app_context():
     db.create_all()
 
+pcmu_data = bytearray()
 #-----------------------------------------------
 
 @app.route(INCOMING_CALL_ROUTE, methods=['GET', 'POST'])
@@ -68,7 +69,7 @@ def receive_call():
 @sock.route(WEBSOCKET_ROUTE)
 def transcription_websocket(ws):
     print('called')
-    payload_append = ""
+    #payload_append = ""
     transcriber = None
     while True:
         data = json.loads(ws.receive())
@@ -81,10 +82,12 @@ def transcription_websocket(ws):
                 print('twilio started')
                 c_id = data['start']['callSid']
                 s_id = data['start']['streamSid']
+                output_filename = s_id + ".wav"
             case "media":
                 payload_b64 = data['media']['payload']
-                payload_append = payload_append + payload_b64
+                #payload_append = payload_append + payload_b64
                 payload_mulaw = base64.b64decode(payload_b64)
+                pcmu_data.extend(payload_mulaw)
                 transcriber.stream(payload_mulaw)
             case "stop":
                 print('twilio stopped')
