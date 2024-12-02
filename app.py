@@ -97,12 +97,11 @@ def transcription_websocket(ws):
                 transcriber.close()
                 #-------------------
                 filname = file_path + output_filename
-                #data_bytes = b"".join(pcmu_data)
                 wave_write = pywav.WavWrite(filname, 1, 8000, 8, 7)
                 wave_write.write(pcmu_data)
                 wave_write.close()
                 #--------------------
-                data = SupaUser(date=transcriber.created, transcript=transcriber.final_transcript, session_id = s_id, call_id = c_id)
+                data = SupaUser(date=transcriber.created, transcript=transcriber.final_transcript, session_id = s_id, call_id = c_id, payload = filname)
                 db.session.add(data)
                 db.session.commit()
                 print("Len:", len(pcmu_data))
