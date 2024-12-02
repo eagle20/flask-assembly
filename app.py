@@ -18,7 +18,7 @@ api_key = os.environ['TWILIO_API_KEY_SID']
 api_secret = os.environ['TWILIO_API_SECRET']
 auth_token = os.environ['TWILIO_AUTH_TOKEN'] 
 client = Client(api_key, api_secret, account_sid)
-#client = Client(account_sid, auth_token)
+
 
 # Twilio phone number to call
 TWILIO_NUMBER = os.environ['TWILIO_NUMBER']
@@ -42,7 +42,7 @@ class SupaUser(db.Model):
     transcript = db.Column(db.String)
     session_id = db.Column(db.String)
     call_id = db.Column(db.String)
-    #payload = db.Column(db.String)
+    payload = db.Column(db.String)
 
 with app.app_context():
     db.create_all()
