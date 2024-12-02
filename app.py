@@ -68,6 +68,7 @@ def receive_call():
 
 @sock.route(WEBSOCKET_ROUTE)
 def transcription_websocket(ws):
+    global pcmu_data
     print('called')
     #payload_append = ""
     transcriber = None
